@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import heroImg from "@/assets/mine.png"; 
+import heroImg from "@/assets/me.png"; 
 
 const ROLES = ["Mobile App Developer", "Website Developer", "AI Automation Engineer"];
 
@@ -58,8 +58,8 @@ function useCountUp(target: number, duration = 1400) {
 function Stat({ n, label, suffix = "+" }: { n: number; label: string; suffix?: string }) {
   const { val, ref } = useCountUp(n);
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center rounded-[12px] border border-border/80 bg-[#121212] p-3 text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
-      <div className="font-display text-[22px] md:text-[24px] font-bold text-primary mb-0.5 drop-shadow-[0_0_12px_rgba(200,168,75,0.4)]">{val}{suffix}</div>
+    <div ref={ref} className="flex flex-col items-center justify-center rounded-[12px] border border-border/80 bg-[#202024] p-3 text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
+      <div className="font-display text-[22px] md:text-[24px] font-bold text-primary mb-0.5 drop-shadow-[0_0_12px_rgba(232,87,42,0.4)]">{val}{suffix}</div>
       <div className="text-[11px] md:text-[12px] font-medium text-muted-foreground">{label}</div>
     </div>
   );
@@ -84,7 +84,7 @@ export function Hero() {
             
             {/* Headline */}
             <div>
-              <p className="font-display text-[22px] lg:text-[30px] text-primary mb-3 font-semibold">Hi, I'm Fahad Hassan</p>
+              <p className="font-display text-[22px] lg:text-[30px] text-foreground mb-3 font-semibold">Hi, I'm Fahad Hassan</p>
               <h1 className="font-display font-bold text-[28px] md:text-[36px] lg:text-[46px] leading-[1.1] tracking-tight text-foreground">
                 <span className="text-primary">{role}</span>
                 <span className="caret align-middle ml-1 border-r-[3px] border-primary" style={{ height: "0.85em" }} />

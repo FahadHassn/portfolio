@@ -6,6 +6,7 @@ const links = [
   { href: "#home", label: "Home" },
   { href: "#services", label: "Services" },
   { href: "#projects", label: "Projects" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact Us" },
 ];
 
@@ -80,8 +81,8 @@ export function Navbar() {
       </nav>
 
       {/* Mobile overlay */}
-      <div className={cn("fixed inset-0 top-0 h-[100dvh] w-full z-50 bg-[#0f0f0f] transition-opacity lg:hidden flex flex-col", open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
-        <div className="flex items-center justify-between p-5 border-b border-border bg-[#0f0f0f]">
+      <div className={cn("fixed inset-0 top-0 h-[100dvh] w-full z-50 bg-[#0E0E10] transition-opacity lg:hidden flex flex-col", open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
+        <div className="flex items-center justify-between p-5 border-b border-border bg-[#0E0E10]">
           <span className="font-display font-bold text-xl text-foreground">Fahad<span className="text-primary">.</span>dev</span>
           <button aria-label="Close menu" className="h-9 w-9 inline-flex items-center justify-center text-foreground rounded-md hover:bg-surface transition-colors" onClick={() => setOpen(false)}>
             <X className="h-5 w-5" />

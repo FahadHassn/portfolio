@@ -239,8 +239,8 @@ function useCountUp(target: number, duration = 1400) {
 function Stat({ n, label, suffix = "+" }: { n: number; label: string; suffix?: string }) {
   const { val, ref } = useCountUp(n);
   return (
-    <div ref={ref} className="col-span-1 flex flex-col items-center justify-center rounded-[12px] border border-border/80 bg-[#121212] p-4 text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
-      <div className="font-display text-[26px] md:text-[28px] font-bold text-primary mb-1 drop-shadow-[0_0_12px_rgba(200,168,75,0.4)]">{val}{suffix}</div>
+    <div ref={ref} className="col-span-1 flex flex-col items-center justify-center rounded-[12px] border border-border/80 bg-[#202024] p-4 text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
+      <div className="font-display text-[26px] md:text-[28px] font-bold text-primary mb-1 drop-shadow-[0_0_12px_rgba(232,87,42,0.4)]">{val}{suffix}</div>
       <div className="text-[12px] md:text-[13px] font-medium text-muted-foreground">{label}</div>
     </div>
   );

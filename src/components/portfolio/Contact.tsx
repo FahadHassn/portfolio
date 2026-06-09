@@ -1,10 +1,9 @@
 import { Reveal, SectionHeader } from "./Reveal";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
-import { LinkedinIcon, TwitterIcon } from "./SocialIcons";
 
 const infoItems = [
-  { icon: Mail,     label: "Email",         value: "fahadhassan467@gmail.com",    href: "mailto:fahadhassan467@gmail.com" },
-  { icon: Phone,    label: "WhatsApp",       value: "+92 331 1470266",      href: "https://wa.me/923311470266" },
+  { icon: Mail,     label: "Email",         value: "fahadhassan467@gmail.com",    href: "#" },
+  { icon: Phone,    label: "WhatsApp",       value: "+92 331 1470266",      href: "#" },
   { icon: MapPin,   label: "Location",       value: "Gujranwala, Pakistan", href: "#" },
   { icon: Clock,    label: "Response Time",  value: "Within 24 hours",      href: "#" },
 ];

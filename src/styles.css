@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 
-@import "tailwindcss" source(none);
+@import "tailwindcss" source none);
 @source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Portfolio — Black & Gold flat dark theme. No gradients.
- * Page #0D0D0D  Surface #151515  Card #1E1E1E  Border #2A2A2A
- * Primary #C8A84B (gold)  Hover #B8943C
+ * Portfolio — #0E0E10 bg · #161618 surface · #202024 card · #E8572A accent · #FF7A4D highlight
  */
 
 @theme inline {
@@ -48,41 +46,41 @@
 :root {
   --radius: 0.75rem;
 
-  --background: #0D0D0D;
-  --surface: #151515;
-  --elevated: #1E1E1E;
-  --foreground: #F0F0F0;
-  --muted: #1E1E1E;
-  --muted-foreground: #8A8A8A;
-  --subtle-foreground: #5A5A5A;
+  --background: #0E0E10;
+  --surface: #161618;
+  --elevated: #202024;
+  --foreground: #F5F5F5;
+  --muted: #202024;
+  --muted-foreground: #A0A0A8;
+  --subtle-foreground: #5A5A62;
 
-  --card: #151515;
-  --card-foreground: #F0F0F0;
-  --popover: #151515;
-  --popover-foreground: #F0F0F0;
+  --card: #161618;
+  --card-foreground: #F5F5F5;
+  --popover: #161618;
+  --popover-foreground: #F5F5F5;
 
-  --primary: #C8A84B;
-  --primary-foreground: #0D0D0D;
-  --primary-hover: #B8943C;
-  --primary-dim: #29220a;
-  --secondary: #D4AF37;
-  --secondary-foreground: #0D0D0D;
-  --secondary-hover: #B8962E;
-  --accent: #C8A84B;
-  --accent-foreground: #0D0D0D;
+  --primary: #E8572A;
+  --primary-foreground: #FFFFFF;
+  --primary-hover: #FF7A4D;
+  --primary-dim: #2A1810;
+  --secondary: #FF7A4D;
+  --secondary-foreground: #FFFFFF;
+  --secondary-hover: #E8572A;
+  --accent: #E8572A;
+  --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
 
-  --border: #2A2A2A;
-  --input: #2A2A2A;
-  --ring: #C8A84B;
+  --border: #2C2C30;
+  --input: #2C2C30;
+  --ring: #E8572A;
 
   --transition-base: 0.2s ease;
 }
 
 .dark {
-  --background: #0D0D0D;
-  --foreground: #F0F0F0;
+  --background: #0E0E10;
+  --foreground: #F5F5F5;
 }
 
 @layer base {
@@ -103,10 +101,10 @@
     line-height: 1.15;
   }
   ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #0D0D0D; }
-  ::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 8px; }
-  ::-webkit-scrollbar-thumb:hover { background: #C8A84B; }
-  ::selection { background: rgba(200,168,75,0.2); color: #F0F0F0; }
+  ::-webkit-scrollbar-track { background: #0E0E10; }
+  ::-webkit-scrollbar-thumb { background: #2C2C30; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #E8572A; }
+  ::selection { background: rgba(232,87,42,0.25); color: #F5F5F5; }
 }
 
 @layer utilities {
@@ -136,20 +134,20 @@
     border: 1px solid var(--border);
     transition: background-color var(--transition-base), border-color var(--transition-base);
   }
-  .btn-secondary:hover { background-color: #1A1A1A; border-color: #3A3A3A; }
+  .btn-secondary:hover { background-color: #202024; border-color: #3C3C42; }
   .card-hover {
     transition: border-color var(--transition-base), transform var(--transition-base);
   }
   .card-hover:hover { border-color: var(--primary); transform: translateY(-3px); }
   .dot-grid {
-    background-image: radial-gradient(rgba(200,168,75,0.1) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(232,87,42,0.08) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 }
 
 @keyframes pulse-dot {
-  0%,100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(200,168,75,0.7); }
-  50% { transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 0 8px rgba(200,168,75,0); }
+  0%,100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(232,87,42,0.7); }
+  50% { transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 0 8px rgba(232,87,42,0); }
 }
 .pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
 
@@ -157,7 +155,7 @@
 .caret {
   display: inline-block;
   width: 3px;
-  background: #C8A84B;
+  background: #E8572A;
   margin-left: 4px;
   animation: blink-caret 0.9s step-end infinite;
 }

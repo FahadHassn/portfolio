@@ -118,7 +118,7 @@ export function Skills() {
         <div className="mt-20 overflow-hidden py-8 border-y border-border/40 [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)] bg-gradient-to-r from-transparent via-surface/30 to-transparent">
           <div className="flex w-max gap-12 marquee-track items-center">
             {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((l, i) => (
-              <span key={i} className="font-display text-xl font-medium text-primary/80 whitespace-nowrap hover:text-primary hover:drop-shadow-[0_0_8px_rgba(200,168,75,0.6)] hover:scale-[1.05] transition-all duration-300 cursor-default">
+              <span key={i} className="font-display text-xl font-medium text-primary/80 whitespace-nowrap hover:text-primary hover:drop-shadow-[0_0_8px_rgba(232,87,42,0.6)] hover:scale-[1.05] transition-all duration-300 cursor-default">
                 {l}
               </span>
             ))}

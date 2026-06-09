@@ -1,5 +1,5 @@
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "./SocialIcons";
-import { ArrowUp } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+
 
 const quickLinks = ["Home", "About", "Services", "Projects", "Skills", "Contact"];
 const services = ["Mobile App Development", "Website Development", "AI Automation"];
@@ -21,8 +21,11 @@ export function Footer() {
               Mobile app, Websites & AI automation specialist building thoughtful software for ambitious teams.
             </p>
             <div className="mt-5 flex items-center justify-center sm:justify-start gap-2">
-              {[GithubIcon, LinkedinIcon, TwitterIcon].map((Icon, i) => (
-                <a key={i} href="#" className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-border bg-elevated text-muted-foreground hover:text-primary hover:border-primary transition">
+              {[
+                { Icon: GithubIcon, href: "https://github.com/FahadHassn" },
+                { Icon: LinkedinIcon, href: "https://pk.linkedin.com/in/fahadhassan72" },
+              ].map(({ Icon, href }, i) => (
+                <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-border bg-elevated text-muted-foreground hover:text-primary hover:border-primary transition">
                   <Icon width={16} height={16} />
                 </a>
               ))}

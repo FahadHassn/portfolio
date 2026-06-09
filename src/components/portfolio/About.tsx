@@ -59,7 +59,7 @@ export function About() {
           <div className="space-y-8">
             {/* Avatar card */}
             <div className="relative mx-auto lg:mx-0 h-72 w-72">
-              <div className="h-full w-full rounded-3xl border-2 border-border bg-elevated flex items-center justify-center overflow-hidden" style={{ boxShadow: "inset 0 0 40px rgba(200,168,75,0.06)" }}>
+              <div className="h-full w-full rounded-3xl border-2 border-border bg-elevated flex items-center justify-center overflow-hidden" style={{ boxShadow: "inset 0 0 40px rgba(232,87,42,0.06)" }}>
                 <div className="text-center">
                   <div className="font-display text-7xl font-bold text-primary">SF</div>
                   <div className="mt-2 label-caps text-muted-foreground">Fahad Hassan</div>

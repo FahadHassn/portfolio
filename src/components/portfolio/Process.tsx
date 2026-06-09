@@ -18,7 +18,7 @@ export function Process() {
           {/* Desktop connecting line */}
           <div
             className="hidden lg:block absolute top-8 left-[12%] right-[12%] h-px"
-            style={{ backgroundImage: "repeating-linear-gradient(90deg, #C8A84B 0 6px, transparent 6px 14px)", opacity: 0.4 }}
+            style={{ backgroundImage: "repeating-linear-gradient(90deg, #E8572A 0 6px, transparent 6px 14px)", opacity: 0.4 }}
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6 relative">
