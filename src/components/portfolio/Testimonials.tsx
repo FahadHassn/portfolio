@@ -1,5 +1,5 @@
-import { Reveal, SectionHeader } from "./Reveal";
-import { Star } from "lucide-react";
+import { useState } from "react";
+import { Reveal } from "./Reveal";
 
 const reviews = [
   {
@@ -34,40 +34,58 @@ const reviews = [
   },
 ];
 
-export function Testimonials() {
+function Card({ r }: { r: (typeof reviews)[number] }) {
   return (
-    <section id="testimonials" className="py-16 lg:py-24">
-      <div className="container-x">
-        <SectionHeader tag="Testimonials" title="Client Reviews" subtitle="What the people I've worked with have to say." />
-
-        <div className="mt-12 lg:mt-16 flex flex-nowrap items-stretch overflow-x-auto hide-scrollbar md:grid md:grid-cols-5 md:overflow-visible gap-4 pb-8 md:pb-0 snap-x snap-mandatory px-4 md:px-0 -mx-4 md:mx-0 py-4 -my-4 md:py-0 md:my-0">
-          {reviews.map((r) => (
-            <article key={r.name} className="card-hover relative w-[72vw] sm:w-[55vw] md:w-full min-w-0 shrink-0 snap-center md:snap-align-none self-stretch flex flex-col rounded-2xl border border-border bg-elevated p-5 overflow-hidden items-center text-center md:items-start md:text-left">
-              {/* Gold left accent bar */}
-              <div className="absolute left-0 top-5 bottom-5 w-0.5 rounded-full bg-primary hidden md:block" />
-
-              {/* Stars */}
-              <div className="flex items-center justify-center md:justify-start gap-0.5 mb-3 w-full">
-                {Array.from({ length: 5 }).map((_, j) => (
-                  <Star key={j} className="h-3 w-3 fill-primary text-primary" />
-                ))}
-              </div>
-
-              <p className="text-muted-foreground leading-relaxed text-[12px] flex-1 w-full">"{r.text}"</p>
-
-              <div className="mt-4 flex flex-col md:flex-row items-center gap-2.5 pt-4 border-t border-border w-full justify-center md:justify-start">
-                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center font-display font-bold text-primary-foreground text-[11px] shrink-0">
-                  {r.initials}
-                </div>
-                <div>
-                  <div className="font-semibold text-foreground text-[11px]">{r.name}</div>
-                  <div className="text-[10px] text-muted-foreground leading-tight">{r.title}</div>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+    <div className="relative flex h-full flex-col items-center text-center rounded-3xl border border-border bg-elevated px-6 pb-7 pt-12 shadow-soft">
+      {/* Avatar */}
+      <div className="absolute -top-7 left-1/2 -translate-x-1/2 h-14 w-14 rounded-full bg-primary flex items-center justify-center font-display font-bold text-primary-foreground text-[15px] ring-4 ring-surface shadow-soft">
+        {r.initials}
       </div>
+      <p className="text-muted-foreground leading-relaxed text-[14px] flex-1">"{r.text}"</p>
+      <div className="mt-5 pt-5 border-t border-border w-full">
+        <div className="font-display font-semibold text-foreground text-[15px]">{r.name}</div>
+        <div className="text-[12px] text-muted-foreground mt-0.5">{r.title}</div>
+      </div>
+    </div>
+  );
+}
+
+export function Testimonials() {
+  const [held, setHeld] = useState(false);
+
+  return (
+    <section id="testimonials" className="py-16 lg:py-24 bg-surface">
+      <div className="container-x">
+        <Reveal>
+          <div className="text-center max-w-2xl mx-auto px-4">
+            <span className="label-caps text-primary text-[12px] md:text-[13px]">Testimonials</span>
+            <h2 className="mt-3 font-display text-[32px] md:text-[48px] font-semibold tracking-tight text-foreground leading-[1.15]">
+              People Talk About Us
+            </h2>
+            <p className="mt-4 text-muted-foreground text-[15px] md:text-lg leading-relaxed">
+              I got the job done in line with the scope and budget — the whole process was smooth and easy.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+
+      {/* Continuous loop marquee — pauses on hover (desktop) and on hold (mobile) */}
+      <Reveal delay={0.08}>
+        <div
+          className="marquee-pause mt-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
+          onTouchStart={() => setHeld(true)}
+          onTouchEnd={() => setHeld(false)}
+          onTouchCancel={() => setHeld(false)}
+        >
+          <div className={`flex w-max items-stretch gap-6 py-10 marquee-track ${held ? "is-paused" : ""}`}>
+            {[...reviews, ...reviews].map((r, i) => (
+              <div key={i} className="w-[300px] sm:w-[360px] shrink-0">
+                <Card r={r} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

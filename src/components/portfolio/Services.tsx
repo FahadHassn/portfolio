@@ -1,83 +1,81 @@
-import { Reveal, SectionHeader } from "./Reveal";
+import { Reveal } from "./Reveal";
 import { Smartphone, Globe, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+
+type Tone = "teal" | "yellow" | "red";
 
 type Service = {
   icon: LucideIcon;
   title: string;
-  description: string;
-  tags: string[];
-  tone: "cyan" | "purple" | "muted";
+  projects: string;
+  tone: Tone;
 };
 
 const services: Service[] = [
-  {
-    icon: Smartphone,
-    title: "Mobile App Development",
-    description: "High-performance native and cross-platform apps built with Java, Kotlin, Jetpack Compose, and Flutter. Delivering seamless user experiences with clean architecture and solid backend integrations.",
-    tags: ["Android", "Flutter", "Jetpack Compose", "Firebase"],
-    tone: "cyan",
-  },
-  {
-    icon: Globe,
-    title: "Website Development",
-    description: "Custom WordPress websites, WooCommerce stores, and tailored business landing pages. Fast, secure, properly SEO-structured, and designed strictly to convert visitors into customers.",
-    tags: ["WordPress", "WooCommerce", "Elementor", "PHP"],
-    tone: "muted",
-  },
-  {
-    icon: Workflow,
-    title: "AI Automation",
-    description: "Automate repetitive business tasks with intelligent n8n, Zapier, and Make workflows connected to your daily tools. Integrate AI to parse data and make informed decisions — saving hours every single week.",
-    tags: ["n8n", "Zapier", "Make.com", "OpenAI / Claude"],
-    tone: "purple",
-  },
+  { icon: Smartphone, title: "Mobile App Development", projects: "20+ Projects", tone: "teal" },
+  { icon: Globe, title: "Website Development", projects: "18+ Projects", tone: "yellow" },
+  { icon: Workflow, title: "AI Automation", projects: "20+ Workflows", tone: "red" },
 ];
+
+const toneIcon: Record<Tone, string> = {
+  teal: "bg-primary text-primary-foreground",
+  yellow: "bg-highlight text-white",
+  red: "bg-redaccent text-white",
+};
 
 export function Services() {
   return (
-    <section id="services" className="py-16 lg:py-24 relative">
-      <div className="absolute right-0 top-1/2 -z-10 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px]" />
-      <div className="container-x">
-        <SectionHeader tag="Services" title="What I Offer" subtitle="End-to-end digital solutions tailored to your business needs." />
-
-        <div className="mt-12 lg:mt-16 flex flex-nowrap items-stretch overflow-x-auto hide-scrollbar md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3 gap-5 pb-8 md:pb-0 snap-x snap-mandatory px-4 md:px-0 -mx-4 md:mx-0 py-4 -my-4 md:py-0 md:my-0">
-          {services.map((s, i) => (
-            <article key={s.title} className="flex flex-col self-stretch w-[75vw] sm:w-[60vw] md:w-full min-w-0 shrink-0 snap-center md:snap-align-none card-hover group rounded-2xl border border-border bg-elevated p-8 relative overflow-hidden transition-all hover:shadow-[0_4px_30px_rgba(232,87,42,0.06)] outline-none focus:outline-none items-center text-center md:items-start md:text-left">
-              {/* Gold corner accent on hover */}
-                <div className="absolute top-0 right-0 h-20 w-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <div className="absolute top-4 right-4 h-8 w-8 border-t-2 border-r-2 border-primary rounded-tr-xl" />
+    <section id="services" className="py-16 lg:py-24 relative bg-surface">
+      <div className="container-x grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Left — stacked service list cards */}
+        <Reveal className="order-2 lg:order-1">
+          <div className="flex flex-col gap-5 max-w-[440px] mx-auto lg:mx-0 w-full">
+            {services.map((s) => (
+              <a
+                key={s.title}
+                href="#projects"
+                className="card-hover group flex items-center gap-5 rounded-2xl border border-border bg-elevated p-5 shadow-soft"
+              >
+                <div className={`inline-flex shrink-0 h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 ${toneIcon[s.tone]}`}>
+                  <s.icon className="h-6 w-6" strokeWidth={1.75} />
                 </div>
-
-                <div className="flex flex-col md:flex-row items-center gap-4 mt-6">
-                  <div className={`inline-flex shrink-0 h-14 w-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 ${
-                    s.tone === "cyan" ? "bg-primary/10 text-primary border border-primary/20 group-hover:shadow-[0_0_20px_rgba(232,87,42,0.25)]"
-                    : s.tone === "purple" ? "bg-primary/10 text-primary border border-primary/20 group-hover:shadow-[0_0_20px_rgba(232,87,42,0.25)]"
-                    : "bg-surface text-muted-foreground border border-border group-hover:text-primary group-hover:border-primary/20"
-                  }`}>
-                    <s.icon className="h-6 w-6" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-display text-[20px] md:text-[24px] font-semibold text-foreground leading-snug">{s.title}</h3>
+                <div>
+                  <h3 className="font-display text-[18px] md:text-[19px] font-semibold text-foreground leading-tight">{s.title}</h3>
+                  <p className="text-[13px] text-muted-foreground mt-0.5">{s.projects}</p>
                 </div>
+              </a>
+            ))}
+          </div>
+        </Reveal>
 
-                <p className="mt-4 md:mt-5 text-[14px] md:text-[15px] text-muted-foreground leading-relaxed">{s.description}</p>
+        {/* Right — heading, copy, stats */}
+        <Reveal delay={0.1} className="order-1 lg:order-2">
+          <div className="text-center lg:text-left">
+            <span className="label-caps text-primary text-[20px] md:text-[24px]">Services</span>
+            <h2 className="mt-3 font-display text-[34px] md:text-[44px] font-semibold tracking-tight text-foreground leading-[1.1]">
+              What Do I Help?
+            </h2>
+            <div className="mt-5 space-y-4 text-[15px] text-muted-foreground leading-relaxed max-w-[480px] mx-auto lg:mx-0">
+              <p>
+                I help you find a solution and solve your problems. I use a process-driven approach to design and build digital products that also grow your business.
+              </p>
+              <p>
+                From mobile apps to websites and intelligent automations — I deliver end-to-end, scalable products tailored to your goals.
+              </p>
+            </div>
 
-                <div className="pt-6 md:pt-8 flex flex-wrap gap-2 mt-auto justify-center md:justify-start">
-                  {s.tags.map((t) => (
-                    <span key={t} className={`rounded-md border px-3 py-1.5 text-[12px] font-medium tracking-wide transition-colors ${
-                      s.tone === "cyan"
-                        ? "border-primary/30 text-primary bg-primary/5 group-hover:bg-primary/10"
-                        : s.tone === "purple"
-                        ? "border-secondary/30 text-secondary bg-secondary/5 group-hover:bg-secondary/10"
-                        : "border-border text-muted-foreground bg-surface group-hover:border-primary/30 group-hover:text-primary"
-                    }`}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </article>
-          ))}
-        </div>
+            <div className="mt-8 flex items-center justify-center lg:justify-start gap-12">
+              <div>
+                <div className="font-display text-[40px] md:text-[48px] font-bold text-foreground leading-none">50+</div>
+                <div className="mt-1 text-[13px] text-muted-foreground">Projects Completed</div>
+              </div>
+              <div>
+                <div className="font-display text-[40px] md:text-[48px] font-bold text-foreground leading-none">40+</div>
+                <div className="mt-1 text-[13px] text-muted-foreground">Happy Clients</div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

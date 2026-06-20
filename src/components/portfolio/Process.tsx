@@ -1,47 +1,85 @@
-import { Reveal, SectionHeader } from "./Reveal";
-import { Search, FileText, Code2, Rocket } from "lucide-react";
+import { Reveal } from "./Reveal";
 
-const steps = [
-  { n: "01", icon: Search, title: "Discovery", text: "Deep-dive into your goals, users, and requirements. We align on vision before writing a single line of code." },
-  { n: "02", icon: FileText, title: "Planning", text: "Architecture, wireframes, and tech stack selection. You get a clear roadmap before development starts." },
-  { n: "03", icon: Code2, title: "Development", text: "Clean, scalable code with regular progress updates. You're always in the loop — no surprises." },
-  { n: "04", icon: Rocket, title: "Delivery", text: "Thorough testing, deployment, and post-launch support. I don't disappear after handoff." },
+type Tone = "teal" | "red" | "yellow";
+
+type Job = {
+  company: string;
+  period: string;
+  role: string;
+  description: string;
+  tone: Tone;
+};
+
+const jobs: Job[] = [
+  {
+    company: "Self Employed",
+    period: "2022 – Present",
+    role: "AI Automation Expert & Website Developer",
+    description:
+      "Designing AI-powered automation pipelines with n8n, Zapier and Make, and building custom WordPress, WooCommerce and Elementor websites — also taking on freelance projects end to end for clients worldwide.",
+    tone: "teal",
+  },
+  {
+    company: "Mobizion",
+    period: "Nov 2023 – Present",
+    role: "Mobile App Developer",
+    description:
+      "Building production Android & Flutter apps with Java, Kotlin, Jetpack Compose and Dart — clean architecture, Firebase, payments and AI features shipped to the Play Store and App Store.",
+    tone: "red",
+  },
+  {
+    company: "Dev Valley",
+    period: "Sep 2022 – Oct 2023",
+    role: "Android App Developer",
+    description:
+      "Developed and maintained native Android applications with Java and Kotlin — implementing features, integrating APIs and shipping reliable, performant apps to the Play Store.",
+    tone: "yellow",
+  },
 ];
+
+const dotColor: Record<Tone, string> = {
+  teal: "bg-primary",
+  red: "bg-redaccent",
+  yellow: "bg-highlight",
+};
 
 export function Process() {
   return (
-    <section id="process" className="py-16 lg:py-24">
+    <section id="experience" className="py-16 lg:py-24">
       <div className="container-x">
-        <SectionHeader tag="Process" title="How I Work" subtitle="A simple, transparent process from idea to successful delivery." />
+        <Reveal>
+          <h2 className="text-center font-display text-[34px] md:text-[48px] font-semibold tracking-tight text-foreground">
+            My Work Experience
+          </h2>
+        </Reveal>
 
-        <div className="mt-12 lg:mt-16 relative">
-          {/* Desktop connecting line */}
-          <div
-            className="hidden lg:block absolute top-8 left-[12%] right-[12%] h-px"
-            style={{ backgroundImage: "repeating-linear-gradient(90deg, #E8572A 0 6px, transparent 6px 14px)", opacity: 0.4 }}
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6 relative">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.08}>
-                <div className="flex flex-col items-center text-center gap-5">
-                  {/* Step circle */}
-                  <div className="relative shrink-0">
-                    <div className="h-16 w-16 rounded-full border border-border bg-elevated flex items-center justify-center group transition hover:border-primary">
-                      <s.icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
-                    </div>
-                    <span className="absolute -top-1.5 -right-1.5 h-6 w-6 rounded-full bg-primary flex items-center justify-center font-display text-[10px] font-bold text-primary-foreground">
-                      {s.n}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-xl font-semibold text-foreground">{s.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground max-w-[220px] lg:mx-auto leading-relaxed">{s.text}</p>
-                  </div>
+        <div className="mt-12 lg:mt-16 max-w-4xl mx-auto">
+          {jobs.map((j, i) => (
+            <Reveal key={j.company} delay={i * 0.08}>
+              <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-x-10 items-start">
+                {/* Left — company + period (desktop), left-aligned like the reference */}
+                <div className="hidden lg:block lg:pl-2">
+                  <h3 className="font-display text-[20px] font-semibold text-foreground">{j.company}</h3>
+                  <p className="text-[14px] text-muted-foreground mt-1">{j.period}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+
+                {/* Right — dotted line + dot + role/desc */}
+                <div className={`relative pl-8 ${i === jobs.length - 1 ? "pb-2" : "pb-12 lg:pb-16"}`}>
+                  <span className="absolute left-[7px] top-2 -bottom-2 w-px border-l border-dashed border-border" aria-hidden="true" />
+                  <span className={`absolute left-0 top-1 h-4 w-4 rounded-full ring-4 ring-background ${dotColor[j.tone]}`} />
+                  {/* company/period inline on mobile */}
+                  <div className="lg:hidden mb-1">
+                    <span className="font-display text-[16px] font-semibold text-foreground">{j.company}</span>
+                    <span className="text-[13px] text-muted-foreground"> · {j.period}</span>
+                  </div>
+                  <h3 className="font-display text-[20px] md:text-[22px] font-semibold text-foreground leading-none">{j.role}</h3>
+                  <p className="mt-2.5 text-[14px] md:text-[15px] text-muted-foreground leading-relaxed max-w-[520px]">
+                    {j.description}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

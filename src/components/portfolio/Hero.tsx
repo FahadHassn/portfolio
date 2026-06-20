@@ -1,141 +1,86 @@
-import { useEffect, useRef, useState } from "react";
-import heroImg from "@/assets/me.png"; 
+import heroImg from "@/assets/me.png";
+import designImg from "@/assets/design.png";
+import { Send } from "lucide-react";
 
-const ROLES = ["Mobile App Developer", "Website Developer", "AI Automation Engineer"];
-
-function useTypewriter(words: string[], typeSpeed = 85, deleteSpeed = 45, pause = 2000) {
-  const [text, setText] = useState("");
-  const [i, setI] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const word = words[i % words.length];
-    let timeout: number;
-    if (!deleting && text === word) {
-      timeout = window.setTimeout(() => setDeleting(true), pause);
-    } else if (deleting && text === "") {
-      setDeleting(false);
-      setI((p) => p + 1);
-    } else {
-      timeout = window.setTimeout(
-        () => setText(deleting ? word.slice(0, text.length - 1) : word.slice(0, text.length + 1)),
-        deleting ? deleteSpeed : typeSpeed
-      );
-    }
-    return () => clearTimeout(timeout);
-  }, [text, deleting, i, words, typeSpeed, deleteSpeed, pause]);
-
-  return text;
-}
-
-function useCountUp(target: number, duration = 1400) {
-  const [val, setVal] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const started = useRef(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const tick = (now: number) => {
-            const p = Math.min(1, (now - start) / duration);
-            setVal(Math.round(target * (1 - Math.pow(1 - p, 3))));
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      });
-    }, { threshold: 0.4 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [target, duration]);
-  return { val, ref };
-}
-
-function Stat({ n, label, suffix = "+" }: { n: number; label: string; suffix?: string }) {
-  const { val, ref } = useCountUp(n);
+/* Background design — peach paint-splash image behind the photo. */
+function BlobBg({ className = "" }: { className?: string }) {
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center rounded-[12px] border border-border/80 bg-[#202024] p-3 text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
-      <div className="font-display text-[22px] md:text-[24px] font-bold text-primary mb-0.5 drop-shadow-[0_0_12px_rgba(232,87,42,0.4)]">{val}{suffix}</div>
-      <div className="text-[11px] md:text-[12px] font-medium text-muted-foreground">{label}</div>
+    <div className={className} aria-hidden="true">
+      <img
+        src={designImg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
     </div>
   );
 }
 
 export function Hero() {
-  const role = useTypewriter(ROLES);
-
   return (
-    <section id="home" className="relative min-h-[85vh] flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute inset-0 -z-10 dot-grid opacity-50 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
-      <div className="absolute top-0 right-0 -z-10 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[130px] pointer-events-none" />
+    <section id="home" className="relative min-h-[92vh] flex items-center overflow-hidden pt-24">
+      {/* Desktop visual — blob + large photo bleed to the right viewport edge */}
+      <div className="hidden lg:block absolute inset-y-0 right-0 w-[54%]">
+        <BlobBg className="absolute inset-0" />
+        <div className="absolute inset-0 flex items-end justify-center">
+          <img
+            src={heroImg}
+            alt="Fahad Hassan"
+            className="relative z-10 h-full w-auto object-contain object-bottom drop-shadow-[0_24px_36px_rgba(28,43,57,0.16)]"
+          />
+        </div>
+      </div>
 
-      <div className="container-x w-full mx-auto">
+      <div className="container-x relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 items-center gap-10">
 
-        {/* Top: Left text + Right image */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-14 items-center">
-          
-          {/* Left Column - Text Details */}
-          <div className="flex flex-col space-y-6 w-full items-center lg:items-start text-center lg:text-left">
-            
-            {/* Headline */}
-            <div>
-              <p className="font-display text-[22px] lg:text-[30px] text-foreground mb-3 font-semibold">Hi, I'm Fahad Hassan</p>
-              <h1 className="font-display font-bold text-[28px] md:text-[36px] lg:text-[46px] leading-[1.1] tracking-tight text-foreground">
-                <span className="text-primary">{role}</span>
-                <span className="caret align-middle ml-1 border-r-[3px] border-primary" style={{ height: "0.85em" }} />
-              </h1>
-            </div>
+          {/* LEFT — copy */}
+          <div className="text-center lg:text-left max-w-[540px] mx-auto lg:mx-0 py-8">
+            <h1 className="font-display font-bold text-[48px] sm:text-[64px] lg:text-[80px] leading-[1.04] tracking-tight text-foreground">
+              <span className="block">Hello,</span>
+              <span className="block">
+                I'm{" "}
+                <span
+                  className="px-1"
+                  style={{ background: "linear-gradient(transparent 56%, rgba(234,162,60,0.45) 56%)" }}
+                >
+                  Fahad
+                </span>
+              </span>
+            </h1>
 
-            {/* About text */}
-            <div className="space-y-4 text-[14px] lg:text-[16px] text-muted-foreground leading-[1.6]">
-              <p>
-                I am a passionate developer with over 4 years of experience. I specialize in mobile app development, WordPress websites, and AI-powered workflow automation. I create scalable Android and cross-platform applications that help turn ideas into real products.
-              </p>
-              <p>
-                In addition to coding, I design smart automation systems using tools like n8n, Zapier, and Make. These systems help reduce repetitive tasks and improve efficiency, so you can focus on more important work.
-              </p>
-            </div>
+            <a
+              href="#experience"
+              className="inline-block mt-7 text-[18px] lg:text-[22px] font-medium text-foreground underline underline-offset-[6px] decoration-1 hover:text-secondary transition-colors"
+            >
+              Mobile App Developer at Mobizion
+            </a>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
-              <a href="#services" className="inline-flex items-center justify-center rounded-[8px] bg-primary text-primary-foreground hover:bg-primary-hover transition-colors px-6 py-2.5 text-[14px] font-semibold hover:-translate-y-[1px] duration-200">
-                What I Offer
-              </a>
-              <a href="#contact" className="inline-flex items-center justify-center rounded-[8px] border border-border bg-transparent text-foreground hover:border-primary/50 hover:bg-surface transition-colors px-6 py-2.5 text-[14px] font-semibold hover:-translate-y-[1px] duration-200">
-                Download CV
-              </a>
-            </div>
+            <p className="mt-6 max-w-[440px] mx-auto lg:mx-0 text-[15px] lg:text-[16px] text-muted-foreground leading-relaxed">
+              Hi, my name is Fahad and I'm a mobile app, website &amp; AI automation
+              developer from Pakistan. I have 4+ years of experience building apps and
+              shipping intelligent automations people love.
+            </p>
+
+            <a
+              href="#contact"
+              className="mt-9 inline-flex items-center gap-4 rounded-[12px] bg-foreground text-background pl-7 pr-6 py-4 text-[15px] font-semibold hover:bg-foreground/90 transition-colors shadow-soft"
+            >
+              Message <Send className="h-4 w-4 text-highlight" />
+            </a>
           </div>
 
-          {/* Right Column - Image only */}
-          <div className="flex w-full items-center justify-center lg:justify-end lg:pl-6">
-            <div className="relative w-full max-w-[320px] lg:max-w-[480px] aspect-[3/3.2] rounded-[24px] border border-border/50 bg-[#0f0f0f] shadow-2xl group p-1 flex items-center justify-center">
-              <div className="relative w-full h-full rounded-[20px] overflow-hidden bg-surface">
-                <img 
-                  src={heroImg} 
-                  alt="Developer profile" 
-                  className="h-full w-full object-cover object-bottom transition-transform duration-[1200ms] group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent pointer-events-none" />
-              </div>
+          {/* Mobile visual — shown above the copy on mobile */}
+          <div className="lg:hidden relative h-[420px] order-first">
+            <BlobBg className="absolute inset-0 -mr-6" />
+            <div className="absolute inset-0 flex items-end justify-center">
+              <img
+                src={heroImg}
+                alt="Fahad Hassan"
+                className="relative z-10 h-[99%] w-auto object-contain object-bottom drop-shadow-[0_24px_36px_rgba(28,43,57,0.16)]"
+              />
             </div>
           </div>
-
         </div>
-
-        {/* Bottom: Stats — full width single row, centered */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 w-full">
-          <Stat n={50} label="Projects Done" />
-          <Stat n={40} label="Happy Clients" />
-          <Stat n={4} label="Years Experience" />
-          <Stat n={20} label="AI Workflows Built" />
-        </div>
-
       </div>
     </section>
   );

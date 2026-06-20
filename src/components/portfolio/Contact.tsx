@@ -1,60 +1,76 @@
-import { Reveal, SectionHeader } from "./Reveal";
-import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Reveal } from "./Reveal";
+import { Mail, MessageCircle, MapPin } from "lucide-react";
 
-const infoItems = [
-  { icon: Mail,     label: "Email",         value: "fahadhassan467@gmail.com",    href: "#" },
-  { icon: Phone,    label: "WhatsApp",       value: "+92 331 1470266",      href: "#" },
-  { icon: MapPin,   label: "Location",       value: "Gujranwala, Pakistan", href: "#" },
-  { icon: Clock,    label: "Response Time",  value: "Within 24 hours",      href: "#" },
+const navLinks = [
+  { label: "About", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Experience", href: "#experience" },
+  { label: "Work", href: "#projects" },
+  { label: "Testimonials", href: "#testimonials" },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="py-16 lg:py-24 relative">
-      <div className="absolute left-1/2 bottom-0 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/6 blur-[100px]" />
-      <div className="container-x max-w-2xl">
-        <SectionHeader
-          tag="Contact"
-          title="Let's Build Something Great"
-          subtitle="Have a project in mind? Reach out directly — I'm one message away."
-        />
+    <section id="contact" className="py-16 lg:py-24 relative bg-surface">
+      <div className="container-x grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        {/* Left — headline + saying hi */}
+        <Reveal>
+          <div className="text-center lg:text-left">
+            <h2 className="font-display text-[36px] md:text-[52px] font-semibold tracking-tight text-foreground leading-[1.1]">
+              Let's make something amazing together.
+            </h2>
+            <p className="mt-10 font-display text-[28px] md:text-[34px] font-semibold text-foreground">
+              Start by{" "}
+              <a href="https://wa.me/923311470266" className="text-secondary font-script underline decoration-2 underline-offset-4 hover:text-secondary-hover transition-colors">
+                saying hi
+              </a>
+            </p>
 
-        {/* Primary CTA buttons */}
-        <Reveal delay={0.08}>
-          <div className="mt-12 lg:mt-16 flex flex-col sm:flex-row gap-4">
-            <a
-              href="https://wa.me/923311470266"
-              className="flex-1 inline-flex items-center justify-center gap-2.5 rounded-xl bg-primary text-primary-foreground px-6 py-4 text-sm font-semibold hover:bg-primary-hover transition hover:-translate-y-[2px] duration-200"
-            >
-              <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
-            </a>
-            <a
-              href="mailto:fahadhassan467@gmail.com"
-              className="flex-1 inline-flex items-center justify-center gap-2.5 rounded-xl border border-border bg-surface text-foreground px-6 py-4 text-sm font-semibold hover:border-primary hover:text-primary transition hover:-translate-y-[2px] duration-200"
-            >
-              <Mail className="h-5 w-5" /> Send an Email
-            </a>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a
+                href="https://wa.me/923311470266"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:bg-primary-hover transition hover:-translate-y-[2px] duration-200 shadow-soft"
+              >
+                <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
+              </a>
+              <a
+                href="mailto:fahadhassan467@gmail.com"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-border bg-elevated text-foreground px-7 py-3.5 text-sm font-semibold hover:border-primary hover:text-primary transition hover:-translate-y-[2px] duration-200"
+              >
+                <Mail className="h-5 w-5" /> Send an Email
+              </a>
+            </div>
           </div>
         </Reveal>
 
-        {/* Info cards grid */}
-        <Reveal delay={0.14}>
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {infoItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 rounded-2xl border border-border bg-surface p-4 hover:border-primary transition group"
-              >
-                <div className="h-10 w-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary/25 transition">
-                  <item.icon className="h-5 w-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{item.label}</div>
-                  <div className="text-foreground font-medium text-sm truncate">{item.value}</div>
-                </div>
-              </a>
-            ))}
+        {/* Right — Information */}
+        <Reveal delay={0.1}>
+          <div className="lg:pl-8 text-center lg:text-left">
+            <h3 className="font-display text-[22px] font-semibold text-foreground">Information</h3>
+
+            <ul className="mt-6 space-y-4 text-[15px] text-muted-foreground">
+              <li className="flex items-center gap-3 justify-center lg:justify-start">
+                <MapPin className="h-5 w-5 text-primary shrink-0" /> Gujranwala, Pakistan
+              </li>
+              <li className="flex items-center gap-3 justify-center lg:justify-start">
+                <Mail className="h-5 w-5 text-primary shrink-0" />
+                <a href="mailto:fahadhassan467@gmail.com" className="hover:text-primary transition">fahadhassan467@gmail.com</a>
+              </li>
+              <li className="flex items-center gap-3 justify-center lg:justify-start">
+                <MessageCircle className="h-5 w-5 text-primary shrink-0" />
+                <a href="https://wa.me/923311470266" className="hover:text-primary transition">+92 331 1470266</a>
+              </li>
+            </ul>
+
+            <div className="mt-8 h-px w-full bg-border" />
+
+            <nav className="mt-6 flex flex-col gap-3">
+              {navLinks.map((l) => (
+                <a key={l.label} href={l.href} className="label-caps text-[12px] text-muted-foreground hover:text-primary transition w-fit mx-auto lg:mx-0">
+                  {l.label}
+                </a>
+              ))}
+            </nav>
           </div>
         </Reveal>
       </div>
