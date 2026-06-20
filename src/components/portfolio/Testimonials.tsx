@@ -54,7 +54,7 @@ export function Testimonials() {
   const [held, setHeld] = useState(false);
 
   return (
-    <section id="testimonials" className="py-16 lg:py-24 bg-surface">
+    <section id="testimonials" className="py-16 lg:py-24">
       <div className="container-x">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto px-4">

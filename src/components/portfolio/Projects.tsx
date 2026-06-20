@@ -187,7 +187,7 @@ export function Projects() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section id="projects" className="py-16 lg:py-24 overflow-hidden">
+    <section id="projects" className="py-16 lg:py-24 overflow-hidden bg-surface">
       <div className="container-x">
         {/* Header — left title + subtitle, right "Explore More Works" link */}
         <Reveal>

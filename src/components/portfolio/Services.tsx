@@ -25,7 +25,14 @@ const toneIcon: Record<Tone, string> = {
 
 export function Services() {
   return (
-    <section id="services" className="py-16 lg:py-24 relative bg-surface">
+    <section id="services" className="pt-28 pb-16 lg:pt-40 lg:pb-24 relative bg-surface">
+      <Reveal className="container-x text-center mb-12 lg:mb-16">
+        <span className="label-caps text-primary text-[20px] md:text-[24px]">Services</span>
+        <h2 className="mt-3 font-display text-[34px] md:text-[44px] font-semibold tracking-tight text-foreground leading-[1.1]">
+          What Do I Help?
+        </h2>
+      </Reveal>
+
       <div className="container-x grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left — stacked service list cards */}
         <Reveal className="order-2 lg:order-1">
@@ -51,11 +58,7 @@ export function Services() {
         {/* Right — heading, copy, stats */}
         <Reveal delay={0.1} className="order-1 lg:order-2">
           <div className="text-center lg:text-left">
-            <span className="label-caps text-primary text-[20px] md:text-[24px]">Services</span>
-            <h2 className="mt-3 font-display text-[34px] md:text-[44px] font-semibold tracking-tight text-foreground leading-[1.1]">
-              What Do I Help?
-            </h2>
-            <div className="mt-5 space-y-4 text-[15px] text-muted-foreground leading-relaxed max-w-[480px] mx-auto lg:mx-0">
+            <div className="space-y-4 text-[15px] text-muted-foreground leading-relaxed max-w-[480px] mx-auto lg:mx-0">
               <p>
                 I help you find a solution and solve your problems. I use a process-driven approach to design and build digital products that also grow your business.
               </p>

@@ -70,7 +70,7 @@ const marqueeItems = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-16 lg:py-24 relative">
+    <section id="skills" className="py-16 lg:py-24 relative bg-surface">
       {/* Visual background elements */}
       <div className="absolute top-1/3 left-0 -z-10 h-[600px] w-full max-w-2xl -translate-y-1/2 rounded-[100%] bg-primary/5 blur-[120px] pointer-events-none" />
 
