@@ -1,6 +1,12 @@
 import heroImg from "@/assets/me.png";
 import designImg from "@/assets/design.png";
-import { Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+
+const socials = [
+  { Icon: GithubIcon, href: "https://github.com/FahadHassn", label: "GitHub" },
+  { Icon: LinkedinIcon, href: "https://pk.linkedin.com/in/fahadhassan72", label: "LinkedIn" },
+];
 
 /* Background design — peach paint-splash image behind the photo. */
 function BlobBg({ className = "" }: { className?: string }) {
@@ -35,7 +41,16 @@ export function Hero() {
 
           {/* LEFT — copy */}
           <div className="text-center lg:text-left max-w-[540px] mx-auto lg:mx-0 py-8">
-            <h1 className="font-display font-bold text-[48px] sm:text-[64px] lg:text-[80px] leading-[1.04] tracking-tight text-foreground">
+            {/* Availability pill */}
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-elevated px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              Available for new projects
+            </span>
+
+            <h1 className="mt-5 font-display font-bold text-[48px] sm:text-[64px] lg:text-[80px] leading-[1.04] tracking-tight text-foreground">
               <span className="block">Hello,</span>
               <span className="block">
                 I'm{" "}
@@ -48,25 +63,41 @@ export function Hero() {
               </span>
             </h1>
 
-            <a
-              href="#experience"
-              className="inline-block mt-7 text-[18px] lg:text-[22px] font-medium text-foreground underline underline-offset-[6px] decoration-1 hover:text-secondary transition-colors"
-            >
-              Mobile App Developer at Mobizion
-            </a>
+            {/* Discipline tagline */}
+            <p className="mt-5 text-[16px] lg:text-[18px] font-medium text-foreground">
+              Mobile Apps <span className="text-primary">·</span> Websites{" "}
+              <span className="text-primary">·</span> AI Automation
+            </p>
 
-            <p className="mt-6 max-w-[440px] mx-auto lg:mx-0 text-[15px] lg:text-[16px] text-muted-foreground leading-relaxed">
+            <p className="mt-4 max-w-[440px] mx-auto lg:mx-0 text-[15px] lg:text-[16px] text-muted-foreground leading-relaxed">
               Hi, my name is Fahad and I'm a mobile app, website &amp; AI automation
               developer from Pakistan. I have 4+ years of experience building apps and
               shipping intelligent automations people love.
             </p>
 
-            <a
-              href="#contact"
-              className="mt-9 inline-flex items-center gap-4 rounded-[12px] bg-foreground text-background pl-7 pr-6 py-4 text-[15px] font-semibold hover:bg-foreground/90 transition-colors shadow-soft"
-            >
-              Message <Send className="h-4 w-4 text-highlight" />
-            </a>
+            {/* CTA + socials */}
+            <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+              <a
+                href="#projects"
+                className="btn-primary inline-flex items-center gap-2 rounded-[12px] px-7 py-4 text-[15px] font-semibold shadow-soft"
+              >
+                View My Work <ArrowRight className="h-4 w-4" />
+              </a>
+              <div className="flex items-center gap-2.5">
+                {socials.map(({ Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-elevated text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                  >
+                    <Icon className="h-[18px] w-[18px]" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Mobile visual — shown above the copy on mobile */}
