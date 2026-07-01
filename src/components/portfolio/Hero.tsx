@@ -1,12 +1,6 @@
 import heroImg from "@/assets/me.png";
 import designImg from "@/assets/design.png";
-import { ArrowRight } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
-
-const socials = [
-  { Icon: GithubIcon, href: "https://github.com/FahadHassn", label: "GitHub" },
-  { Icon: LinkedinIcon, href: "https://pk.linkedin.com/in/fahadhassan72", label: "LinkedIn" },
-];
+import { ArrowRight, Download } from "lucide-react";
 
 /* Background design — peach paint-splash image behind the photo. */
 function BlobBg({ className = "" }: { className?: string }) {
@@ -15,6 +9,9 @@ function BlobBg({ className = "" }: { className?: string }) {
       <img
         src={designImg}
         alt=""
+        width={1545}
+        height={2000}
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
     </div>
@@ -31,6 +28,10 @@ export function Hero() {
           <img
             src={heroImg}
             alt="Fahad Hassan"
+            width={896}
+            height={1184}
+            decoding="async"
+            fetchPriority="high"
             className="relative z-10 h-full w-auto object-contain object-bottom drop-shadow-[0_24px_36px_rgba(28,43,57,0.16)]"
           />
         </div>
@@ -54,11 +55,22 @@ export function Hero() {
               <span className="block">Hello,</span>
               <span className="block">
                 I'm{" "}
-                <span
-                  className="px-1"
-                  style={{ background: "linear-gradient(transparent 56%, rgba(234,162,60,0.45) 56%)" }}
-                >
+                <span className="relative inline-block text-primary">
                   Fahad
+                  <svg
+                    aria-hidden="true"
+                    className="absolute left-0 -bottom-1.5 w-full h-[0.28em] overflow-visible text-highlight"
+                    viewBox="0 0 200 20"
+                    preserveAspectRatio="none"
+                    fill="none"
+                  >
+                    <path
+                      d="M4 13 C 45 5, 90 5, 128 9 C 158 12, 180 11, 196 6"
+                      stroke="currentColor"
+                      strokeWidth="7"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </span>
               </span>
             </h1>
@@ -70,12 +82,12 @@ export function Hero() {
             </p>
 
             <p className="mt-4 max-w-[440px] mx-auto lg:mx-0 text-[15px] lg:text-[16px] text-muted-foreground leading-relaxed">
-              Hi, my name is Fahad and I'm a mobile app, website &amp; AI automation
-              developer from Pakistan. I have 4+ years of experience building apps and
-              shipping intelligent automations people love.
+              I build Android and Flutter apps, WordPress sites, and AI Automation
+              pipelines for founders and businesses across the UK, Europe, and beyond.
+              4+ years. 50+ projects. Real results.
             </p>
 
-            {/* CTA + socials */}
+            {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <a
                 href="#projects"
@@ -83,20 +95,13 @@ export function Hero() {
               >
                 View My Work <ArrowRight className="h-4 w-4" />
               </a>
-              <div className="flex items-center gap-2.5">
-                {socials.map(({ Icon, href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-elevated text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
-                  >
-                    <Icon className="h-[18px] w-[18px]" />
-                  </a>
-                ))}
-              </div>
+              <a
+                href="/Fahad-Hassan-Resume.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-[12px] border border-border bg-elevated px-7 py-4 text-[15px] font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
+              >
+                Download CV <Download className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
@@ -107,6 +112,10 @@ export function Hero() {
               <img
                 src={heroImg}
                 alt="Fahad Hassan"
+                width={896}
+                height={1184}
+                decoding="async"
+                fetchPriority="high"
                 className="relative z-10 h-[99%] w-auto object-contain object-bottom drop-shadow-[0_24px_36px_rgba(28,43,57,0.16)]"
               />
             </div>

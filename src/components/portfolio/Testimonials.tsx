@@ -15,7 +15,7 @@ const reviews = [
     initials: "TM",
   },
   {
-    text: "The AI Life Coach app is beautifully designed. Habit tracking, AI prompts, 75 Hard — works perfectly on Android & iOS.",
+    text: "The AI Life Coach app is beautifully designed. Habit tracking, AI prompts, 75 Hard. Works perfectly on Android and iOS.",
     name: "Ahmed Raza",
     title: "CEO, WellnessFlow",
     initials: "AR",
@@ -60,10 +60,10 @@ export function Testimonials() {
           <div className="text-center max-w-2xl mx-auto px-4">
             <span className="label-caps text-primary text-[12px] md:text-[13px]">Testimonials</span>
             <h2 className="mt-3 font-display text-[32px] md:text-[48px] font-semibold tracking-tight text-foreground leading-[1.15]">
-              People Talk About Us
+              What Clients Say
             </h2>
             <p className="mt-4 text-muted-foreground text-[15px] md:text-lg leading-relaxed">
-              I got the job done in line with the scope and budget — the whole process was smooth and easy.
+              Founders and teams I've shipped apps, websites, and automations for. On scope, on budget, on time.
             </p>
           </div>
         </Reveal>
@@ -79,7 +79,7 @@ export function Testimonials() {
         >
           <div className={`flex w-max items-stretch gap-6 py-10 marquee-track ${held ? "is-paused" : ""}`}>
             {[...reviews, ...reviews].map((r, i) => (
-              <div key={i} className="w-[300px] sm:w-[360px] shrink-0">
+              <div key={i} className="w-[300px] sm:w-[360px] shrink-0" aria-hidden={i >= reviews.length}>
                 <Card r={r} />
               </div>
             ))}

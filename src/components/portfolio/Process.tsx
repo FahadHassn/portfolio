@@ -14,9 +14,9 @@ const jobs: Job[] = [
   {
     company: "Self Employed",
     period: "2022 – Present",
-    role: "AI Automation Expert & Website Developer",
+    role: "Freelance Developer & AI Automation Specialist",
     description:
-      "Designing AI-powered automation pipelines with n8n, Zapier and Make, and building custom WordPress, WooCommerce and Elementor websites — also taking on freelance projects end to end for clients worldwide.",
+      "Building AI automation pipelines and WordPress websites for clients in the UK, Europe, and beyond. Projects range from n8n lead-gen workflows to full WooCommerce stores, scoped, shipped, and supported.",
     tone: "teal",
   },
   {
@@ -24,15 +24,15 @@ const jobs: Job[] = [
     period: "Nov 2023 – Present",
     role: "Mobile App Developer",
     description:
-      "Building production Android & Flutter apps with Java, Kotlin, Jetpack Compose and Dart — clean architecture, Firebase, payments and AI features shipped to the Play Store and App Store.",
+      "Building production Android and Flutter apps with Kotlin, Jetpack Compose, and Dart. Shipped ObjectsAI (AI photo editor) and AI Life Coach, both live on the Play Store and App Store with thousands of users.",
     tone: "red",
   },
   {
     company: "Dev Valley",
     period: "Sep 2022 – Oct 2023",
-    role: "Android App Developer",
+    role: "Android Developer",
     description:
-      "Developed and maintained native Android applications with Java and Kotlin — implementing features, integrating APIs and shipping reliable, performant apps to the Play Store.",
+      "Native Android development with Java and Kotlin. Built and maintained production apps on the Play Store, integrated third-party APIs, and implemented MVVM architecture across multiple client projects.",
     tone: "yellow",
   },
 ];
@@ -48,9 +48,12 @@ export function Process() {
     <section id="experience" className="py-16 lg:py-24">
       <div className="container-x">
         <Reveal>
-          <h2 className="text-center font-display text-[34px] md:text-[48px] font-semibold tracking-tight text-foreground">
-            My Work Experience
-          </h2>
+          <div className="text-center">
+            <span className="label-caps text-primary text-[12px] md:text-[13px]">Career</span>
+            <h2 className="mt-3 font-display text-[34px] md:text-[48px] font-semibold tracking-tight text-foreground">
+              Where I've Worked
+            </h2>
+          </div>
         </Reveal>
 
         <div className="mt-12 lg:mt-16 max-w-4xl mx-auto">

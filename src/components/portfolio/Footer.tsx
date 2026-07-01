@@ -17,17 +17,18 @@ export function Footer() {
         {/* Socials */}
         <div className="flex items-center gap-2">
           {[
-            { Icon: GithubIcon, href: "https://github.com/FahadHassn" },
-            { Icon: LinkedinIcon, href: "https://pk.linkedin.com/in/fahadhassan72" },
-          ].map(({ Icon, href }, i) => (
+            { Icon: GithubIcon, href: "https://github.com/FahadHassn", label: "GitHub" },
+            { Icon: LinkedinIcon, href: "https://pk.linkedin.com/in/fahadhassan72", label: "LinkedIn" },
+          ].map(({ Icon, href, label }) => (
             <a
-              key={i}
+              key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={label}
               className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-border bg-elevated text-muted-foreground hover:text-primary hover:border-primary transition"
             >
-              <Icon width={16} height={16} />
+              <Icon width={16} height={16} aria-hidden="true" />
             </a>
           ))}
         </div>

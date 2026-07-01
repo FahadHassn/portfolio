@@ -3,7 +3,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "#home", label: "About" },
+  { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Work" },
@@ -29,6 +29,19 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll + close on Escape while the mobile menu is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   return (
     <header
@@ -69,10 +82,12 @@ export function Navbar() {
         {/* Actions */}
         <div className="flex-1 flex items-center justify-end gap-4">
           <a href="#contact" className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background hover:bg-foreground/90 transition-colors shadow-soft">
-            Let's Talk <ArrowUpRight className="h-4 w-4" />
+            Hire Me <ArrowUpRight className="h-4 w-4" />
           </a>
           <button
             aria-label="Open menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
             className="md:hidden inline-flex items-center justify-center h-9 w-9 text-foreground rounded-md hover:bg-muted transition-colors"
             onClick={() => setOpen(true)}
           >
@@ -82,7 +97,7 @@ export function Navbar() {
       </nav>
 
       {/* Mobile overlay */}
-      <div className={cn("fixed inset-0 top-0 h-[100dvh] w-full z-50 bg-background transition-opacity lg:hidden flex flex-col", open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
+      <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" className={cn("fixed inset-0 top-0 h-[100dvh] w-full z-50 bg-background transition-opacity lg:hidden flex flex-col", open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}>
         <div className="flex items-center justify-between p-5 border-b border-border bg-background">
           <span className="font-script font-medium text-2xl text-foreground">Fahad<span className="text-primary">.</span></span>
           <button aria-label="Close menu" className="h-9 w-9 inline-flex items-center justify-center text-foreground rounded-md hover:bg-muted transition-colors" onClick={() => setOpen(false)}>

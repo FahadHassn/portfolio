@@ -9,6 +9,11 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Users who prefer reduced motion get content immediately, no scroll animation.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
     const obs = new IntersectionObserver(
       (entries) => { if (entries[0].isIntersecting) { setVisible(true); obs.disconnect(); } },
       { threshold: 0.12 }

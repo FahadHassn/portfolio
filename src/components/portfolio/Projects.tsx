@@ -21,7 +21,7 @@ const projects: Project[] = [
   {
     title: "Boshhh",
     label: "Credit Score App",
-    description: "Credit-building & financial wellness app.",
+    description: "Credit-building and financial wellness app, live on the App Store.",
     category: "Mobile App",
     accentColor: "#2E7D6E",
     emoji: "💳",
@@ -30,8 +30,8 @@ const projects: Project[] = [
   },
   {
     title: "F&T Pizza",
-    label: "Food Delivery App",
-    description: "Restaurant food ordering app, Calw Germany.",
+    label: "Food Ordering App",
+    description: "Online ordering app for a restaurant in Calw, Germany. PayPal-integrated.",
     category: "Mobile App",
     accentColor: "#EAA23C",
     emoji: "🍕",
@@ -41,7 +41,7 @@ const projects: Project[] = [
   {
     title: "ObjectsAI",
     label: "AI Photo Editor",
-    description: "AI photo editor — remove objects & backgrounds.",
+    description: "AI-powered object and background remover. Cross-platform on Play Store and App Store.",
     category: "Mobile App",
     accentColor: "#7c3aed",
     emoji: "✦",
@@ -52,7 +52,7 @@ const projects: Project[] = [
   {
     title: "AI Life Coach",
     label: "Habit Tracker App",
-    description: "Habit tracker & AI life-coaching app.",
+    description: "Habit tracking and AI coaching. 75 Hard, streaks, and daily prompts. On both stores.",
     category: "Mobile App",
     accentColor: "#10b981",
     emoji: "⚡",
@@ -62,8 +62,8 @@ const projects: Project[] = [
   },
   {
     title: "La Bella Cucina",
-    label: "Web Design",
-    description: "Italian restaurant website with reservations.",
+    label: "Restaurant Website",
+    description: "Italian restaurant site with online menu, table reservations, and photo gallery.",
     category: "Websites",
     accentColor: "#D2452F",
     emoji: "🍝",
@@ -71,8 +71,8 @@ const projects: Project[] = [
   },
   {
     title: "ProBuild Agency",
-    label: "Agency Website",
-    description: "Construction & renovation business website.",
+    label: "Construction Website",
+    description: "Business website for a construction and renovation company with a quote request flow.",
     category: "Websites",
     accentColor: "#3b82f6",
     emoji: "🏗",
@@ -80,8 +80,8 @@ const projects: Project[] = [
   },
   {
     title: "RealEstate LeadGen",
-    label: "AI Automation",
-    description: "n8n + OpenAI lead-scoring pipeline to HubSpot.",
+    label: "Lead Scoring Pipeline",
+    description: "Facebook leads scored by OpenAI and pushed to HubSpot. Saves agents 20+ hours a week.",
     category: "AI Automations",
     accentColor: "#0ea5e9",
     emoji: "🏠",
@@ -89,8 +89,8 @@ const projects: Project[] = [
   },
   {
     title: "Gmail AutoResponder",
-    label: "AI Automation",
-    description: "GPT-4 drafts & sends context-aware email replies.",
+    label: "Email Automation",
+    description: "GPT-4 reads incoming emails and sends context-aware replies. Handles 80% of support volume.",
     category: "AI Automations",
     accentColor: "#8b5cf6",
     emoji: "📧",
@@ -183,8 +183,12 @@ function WorkCard({ p, className = "" }: { p: Project; className?: string }) {
   );
 }
 
+const FEATURED_COUNT = 6;
+
 export function Projects() {
   const [expanded, setExpanded] = useState(false);
+  const desktopVisible = expanded ? projects : projects.slice(0, FEATURED_COUNT);
+  const hasMore = projects.length > FEATURED_COUNT;
 
   return (
     <section id="projects" className="py-16 lg:py-24 overflow-hidden bg-surface">
@@ -193,40 +197,55 @@ export function Projects() {
         <Reveal>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 text-center sm:text-left">
             <div>
-              <h2 className="font-display text-[34px] md:text-[48px] font-semibold tracking-tight text-foreground leading-[1.1]">
-                My Latest Works
+              <span className="label-caps text-primary text-[12px] md:text-[13px]">Portfolio</span>
+              <h2 className="mt-2 font-display text-[34px] md:text-[48px] font-semibold tracking-tight text-foreground leading-[1.1]">
+                Selected Work
               </h2>
-              <p className="mt-3 text-muted-foreground text-[15px] md:text-lg">Perfect solution for digital experience.</p>
+              <p className="mt-3 text-muted-foreground text-[15px] md:text-lg">Apps on the Play Store and App Store, live websites, and automations in production.</p>
             </div>
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center gap-1.5 text-secondary font-semibold text-[14px] hover:gap-2.5 transition-all self-center sm:self-auto"
-            >
-              {expanded ? "Show Less" : "Explore More Works"}
-              <ArrowRight className={`h-4 w-4 transition-transform ${expanded ? "rotate-90" : ""}`} />
-            </button>
+            {hasMore && (
+              <button
+                onClick={() => setExpanded((v) => !v)}
+                className="inline-flex items-center gap-1.5 text-secondary-strong font-semibold text-[14px] hover:gap-2.5 transition-all self-center sm:self-auto"
+              >
+                {expanded ? "Show Less" : "Explore More Works"}
+                <ArrowRight className={`h-4 w-4 transition-transform ${expanded ? "-rotate-90" : "rotate-90"}`} />
+              </button>
+            )}
           </div>
         </Reveal>
 
-        {expanded ? (
-          /* Expanded — 3-column grid of all works (contained in the section) */
-          <div className="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((p) => (
-              <Reveal key={p.title}>
-                <WorkCard p={p} className="w-full" />
-              </Reveal>
-            ))}
-          </div>
-        ) : (
-          /* Default — horizontal scroll, contained within the section width */
-          <Reveal>
-            <div className="mt-10 lg:mt-14 flex gap-6 overflow-x-auto hide-scrollbar snap-x snap-mandatory pb-6 -mx-1 px-1">
+        {/* Mobile — horizontal swipe carousel (all projects); switches to a vertical list on expand */}
+        <div className="sm:hidden mt-10">
+          {expanded ? (
+            <div className="grid grid-cols-1 gap-6">
               {projects.map((p) => (
-                <WorkCard key={p.title} p={p} className="w-[78vw] sm:w-[43%] lg:w-[29%] shrink-0 snap-start" />
+                <Reveal key={p.title}>
+                  <WorkCard p={p} className="w-full" />
+                </Reveal>
               ))}
             </div>
-          </Reveal>
-        )}
+          ) : (
+            <Reveal>
+              <div className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory -mx-6 px-6 pb-4">
+                {projects.map((p) => (
+                  <div key={p.title} className="w-[80vw] shrink-0 snap-center">
+                    <WorkCard p={p} className="w-full" />
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          )}
+        </div>
+
+        {/* Desktop — grid, first 6 by default, all on expand */}
+        <div className="hidden sm:grid mt-10 lg:mt-14 grid-cols-2 lg:grid-cols-3 gap-6">
+          {desktopVisible.map((p) => (
+            <Reveal key={p.title}>
+              <WorkCard p={p} className="w-full" />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

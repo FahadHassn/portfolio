@@ -2,7 +2,7 @@ import { Reveal } from "./Reveal";
 import { Mail, MessageCircle, MapPin } from "lucide-react";
 
 const navLinks = [
-  { label: "About", href: "#home" },
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Experience", href: "#experience" },
   { label: "Work", href: "#projects" },
@@ -17,11 +17,11 @@ export function Contact() {
         <Reveal>
           <div className="text-center lg:text-left">
             <h2 className="font-display text-[36px] md:text-[52px] font-semibold tracking-tight text-foreground leading-[1.1]">
-              Let's make something amazing together.
+              Have a project in mind? Let's build it.
             </h2>
             <p className="mt-10 font-display text-[28px] md:text-[34px] font-semibold text-foreground">
               Start by{" "}
-              <a href="https://wa.me/923311470266" className="text-secondary font-script underline decoration-2 underline-offset-4 hover:text-secondary-hover transition-colors">
+              <a href="https://wa.me/923311470266" className="text-secondary-strong font-script underline decoration-2 underline-offset-4 hover:text-secondary-hover transition-colors">
                 saying hi
               </a>
             </p>
@@ -46,7 +46,7 @@ export function Contact() {
         {/* Right — Information */}
         <Reveal delay={0.1}>
           <div className="lg:pl-8 text-center lg:text-left">
-            <h3 className="font-display text-[22px] font-semibold text-foreground">Information</h3>
+            <h3 className="font-display text-[22px] font-semibold text-foreground">Get in touch</h3>
 
             <ul className="mt-6 space-y-4 text-[15px] text-muted-foreground">
               <li className="flex items-center gap-3 justify-center lg:justify-start">
@@ -61,6 +61,10 @@ export function Contact() {
                 <a href="https://wa.me/923311470266" className="hover:text-primary transition">+92 331 1470266</a>
               </li>
             </ul>
+
+            <p className="mt-6 text-[13px] text-muted-foreground">
+              I typically respond within a few hours on WhatsApp or by the next business day via email.
+            </p>
 
             <div className="mt-8 h-px w-full bg-border" />
 
