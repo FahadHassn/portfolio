@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Reveal } from "./Reveal";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 
 type Cat = "Mobile App" | "Websites" | "AI Automations";
+
+/**
+ * A clickable region overlaid on a showcase image. Position/size are given as
+ * percentages of the image so they stay accurate at any render size.
+ * e.g. left: "11%", top: "43.2%", width: "16%", height: "7%"
+ */
+type Hotspot = {
+  href: string;
+  label: string; // accessible label, e.g. "Get F&T Pizza on Google Play"
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+};
 
 type Project = {
   title: string;
@@ -15,6 +29,12 @@ type Project = {
   playStore?: string;
   appStore?: string;
   website?: string;
+  /** Designed graphic (already at the 1.18:1 card ratio). When set, the card shows this image instead of the faux screenshot. */
+  showcase?: string;
+  /** Background behind the showcase image (matches the graphic so edges blend seamlessly). */
+  showcaseBg?: string;
+  /** Clickable regions baked into the showcase image (e.g. a Google Play badge). */
+  hotspots?: Hotspot[];
 };
 
 const projects: Project[] = [
@@ -27,6 +47,11 @@ const projects: Project[] = [
     emoji: "💳",
     features: ["Credit Score", "Cashflow", "SIM Manager"],
     appStore: "https://apps.apple.com/ie/app/boshhh/id6446495097",
+    showcase: "/projects/boshhh.jpg",
+    showcaseBg: "#2E7D6E",
+    hotspots: [
+      { href: "https://apps.apple.com/ie/app/boshhh/id6446495097", label: "Download Boshhh on the App Store", left: "6.1%", top: "46.67%", width: "16.6%", height: "6.4%" },
+    ],
   },
   {
     title: "F&T Pizza",
@@ -37,6 +62,18 @@ const projects: Project[] = [
     emoji: "🍕",
     features: ["Online Order", "PayPal Pay", "Live Menu"],
     playStore: "https://play.google.com/store/apps/details?id=com.abdatacracker.fandtpizza",
+    showcase: "/projects/f&tpizza.jpg",
+    showcaseBg: "#FCCD10",
+    hotspots: [
+      {
+        href: "https://play.google.com/store/apps/details?id=com.abdatacracker.fandtpizza",
+        label: "Get F&T Pizza on Google Play",
+        left: "6%",
+        top: "35.3%",
+        width: "17%",
+        height: "6.5%",
+      },
+    ],
   },
   {
     title: "ObjectsAI",
@@ -48,6 +85,12 @@ const projects: Project[] = [
     features: ["Object Erase", "BG Remove", "AI Upscale"],
     playStore: "https://play.google.com/store/apps/details?id=com.mobizion.objects.ai.eraser",
     appStore: "https://apps.apple.com/us/app/object-remover-and-ai-retouch/id6757428586",
+    showcase: "/projects/objectsai.jpg",
+    showcaseBg: "#7c3aed",
+    hotspots: [
+      { href: "https://play.google.com/store/apps/details?id=com.mobizion.objects.ai.eraser", label: "Get ObjectsAI on Google Play", left: "6.1%", top: "35.9%", width: "18.9%", height: "6.4%" },
+      { href: "https://apps.apple.com/us/app/object-remover-and-ai-retouch/id6757428586", label: "Download ObjectsAI on the App Store", left: "26.4%", top: "35.9%", width: "16.6%", height: "6.4%" },
+    ],
   },
   {
     title: "AI Life Coach",
@@ -59,6 +102,12 @@ const projects: Project[] = [
     features: ["Habit Tracker", "AI Coach", "75 Hard"],
     playStore: "https://play.google.com/store/apps/details?id=com.mobizion.coach",
     appStore: "https://apps.apple.com/cy/app/habit-tracker-ai-life-coach/id6745252758",
+    showcase: "/projects/ai-life-coach.jpg",
+    showcaseBg: "#10b981",
+    hotspots: [
+      { href: "https://play.google.com/store/apps/details?id=com.mobizion.coach", label: "Get AI Life Coach on Google Play", left: "6.1%", top: "46.67%", width: "18.9%", height: "6.4%" },
+      { href: "https://apps.apple.com/cy/app/habit-tracker-ai-life-coach/id6745252758", label: "Download AI Life Coach on the App Store", left: "26.4%", top: "46.67%", width: "16.6%", height: "6.4%" },
+    ],
   },
   {
     title: "La Bella Cucina",
@@ -68,6 +117,8 @@ const projects: Project[] = [
     accentColor: "#D2452F",
     emoji: "🍝",
     features: ["Menu", "Reservations", "Gallery"],
+    showcase: "/projects/la-bella-cucina.jpg",
+    showcaseBg: "#D2452F",
   },
   {
     title: "ProBuild Agency",
@@ -77,6 +128,8 @@ const projects: Project[] = [
     accentColor: "#3b82f6",
     emoji: "🏗",
     features: ["Portfolio", "Quote Form", "WhatsApp"],
+    showcase: "/projects/probuild-agency.jpg",
+    showcaseBg: "#3b82f6",
   },
   {
     title: "RealEstate LeadGen",
@@ -86,6 +139,8 @@ const projects: Project[] = [
     accentColor: "#0ea5e9",
     emoji: "🏠",
     features: ["Lead Capture", "AI Score", "CRM Push"],
+    showcase: "/projects/realestate-leadgen.jpg",
+    showcaseBg: "#0ea5e9",
   },
   {
     title: "Gmail AutoResponder",
@@ -95,6 +150,8 @@ const projects: Project[] = [
     accentColor: "#8b5cf6",
     emoji: "📧",
     features: ["Auto Read", "GPT Reply", "Smart Filter"],
+    showcase: "/projects/gmail-autoresponder.jpg",
+    showcaseBg: "#8b5cf6",
   },
 ];
 
@@ -113,6 +170,7 @@ function StoreLinks({ p }: { p: Project }) {
           href={l.href}
           target="_blank"
           rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
           className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-foreground hover:bg-white transition"
         >
           {l.label}
@@ -122,10 +180,57 @@ function StoreLinks({ p }: { p: Project }) {
   );
 }
 
-function WorkCard({ p, className = "" }: { p: Project; className?: string }) {
+function WorkCard({ p, className = "", onOpen }: { p: Project; className?: string; onOpen?: (p: Project) => void }) {
+  const openProps = onOpen
+    ? {
+        role: "button" as const,
+        tabIndex: 0,
+        onClick: () => onOpen(p),
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpen(p);
+          }
+        },
+      }
+    : {};
+  // Showcase projects render their designed graphic filling the card (same size
+  // as the other cards), with clickable hotspots baked over baked-in badges.
+  if (p.showcase) {
+    return (
+      <article
+        {...openProps}
+        aria-label={`View ${p.title} — ${p.label}`}
+        className={`group relative aspect-[1.18/1] rounded-[28px] overflow-hidden shadow-card cursor-pointer transition-shadow hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
+        style={{ backgroundColor: p.showcaseBg ?? p.accentColor }}
+      >
+        <img
+          src={p.showcase}
+          alt={`${p.title} — ${p.label}`}
+          className="absolute inset-0 h-full w-full object-cover select-none"
+          loading="lazy"
+        />
+        {p.hotspots?.map((h) => (
+          <a
+            key={h.label}
+            href={h.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={h.label}
+            title={h.label}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute z-10 rounded-lg outline-none focus:outline-none focus-visible:outline-none"
+            style={{ left: h.left, top: h.top, width: h.width, height: h.height }}
+          />
+        ))}
+      </article>
+    );
+  }
   return (
     <article
-      className={`relative aspect-[1.18/1] rounded-[28px] overflow-hidden shadow-card group ${className}`}
+      {...openProps}
+      aria-label={`View ${p.title} — ${p.label}`}
+      className={`relative aspect-[1.18/1] rounded-[28px] overflow-hidden shadow-card group cursor-pointer transition-shadow hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
       style={{ backgroundColor: p.accentColor }}
     >
       {/* depth + texture */}
@@ -183,10 +288,70 @@ function WorkCard({ p, className = "" }: { p: Project; className?: string }) {
   );
 }
 
+function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setShow(true);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${p.title} — ${p.label}`}
+      onClick={onClose}
+      className={`fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-sm transition-opacity duration-200 ${show ? "opacity-100" : "opacity-0"}`}
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur hover:bg-white/25 transition"
+      >
+        <X className="h-6 w-6" />
+      </button>
+
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`relative transition-all duration-200 ${show ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+      >
+        <img
+          src={p.showcase}
+          alt={`${p.title} — ${p.label}`}
+          className="block h-auto w-auto max-h-[90vh] max-w-[95vw] rounded-2xl shadow-2xl select-none"
+        />
+        {p.hotspots?.map((h) => (
+          <a
+            key={h.label}
+            href={h.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={h.label}
+            title={h.label}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute rounded-lg outline-none focus:outline-none focus-visible:outline-none"
+            style={{ left: h.left, top: h.top, width: h.width, height: h.height }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const FEATURED_COUNT = 6;
 
 export function Projects() {
   const [expanded, setExpanded] = useState(false);
+  const [active, setActive] = useState<Project | null>(null);
   const desktopVisible = expanded ? projects : projects.slice(0, FEATURED_COUNT);
   const hasMore = projects.length > FEATURED_COUNT;
 
@@ -221,7 +386,7 @@ export function Projects() {
             <div className="grid grid-cols-1 gap-6">
               {projects.map((p) => (
                 <Reveal key={p.title}>
-                  <WorkCard p={p} className="w-full" />
+                  <WorkCard p={p} className="w-full" onOpen={setActive} />
                 </Reveal>
               ))}
             </div>
@@ -230,7 +395,7 @@ export function Projects() {
               <div className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory -mx-6 px-6 pb-4">
                 {projects.map((p) => (
                   <div key={p.title} className="w-[80vw] shrink-0 snap-center">
-                    <WorkCard p={p} className="w-full" />
+                    <WorkCard p={p} className="w-full" onOpen={setActive} />
                   </div>
                 ))}
               </div>
@@ -242,11 +407,13 @@ export function Projects() {
         <div className="hidden sm:grid mt-10 lg:mt-14 grid-cols-2 lg:grid-cols-3 gap-6">
           {desktopVisible.map((p) => (
             <Reveal key={p.title}>
-              <WorkCard p={p} className="w-full" />
+              <WorkCard p={p} className="w-full" onOpen={setActive} />
             </Reveal>
           ))}
         </div>
       </div>
+
+      {active && <ProjectModal p={active} onClose={() => setActive(null)} />}
     </section>
   );
 }
