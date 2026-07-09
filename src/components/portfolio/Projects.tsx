@@ -47,10 +47,10 @@ const projects: Project[] = [
     emoji: "💳",
     features: ["Credit Score", "Cashflow", "SIM Manager"],
     appStore: "https://apps.apple.com/ie/app/boshhh/id6446495097",
-    showcase: "/projects/boshhh.jpg",
+    showcase: "/projects/boshhh.png",
     showcaseBg: "#2E7D6E",
     hotspots: [
-      { href: "https://apps.apple.com/ie/app/boshhh/id6446495097", label: "Download Boshhh on the App Store", left: "6.1%", top: "46.67%", width: "16.6%", height: "6.4%" },
+      { href: "https://apps.apple.com/ie/app/boshhh/id6446495097", label: "Download Boshhh on the App Store", left: "7.2%", top: "88.5%", width: "16%", height: "7%" },
     ],
   },
   {
@@ -62,7 +62,7 @@ const projects: Project[] = [
     emoji: "🍕",
     features: ["Online Order", "PayPal Pay", "Live Menu"],
     playStore: "https://play.google.com/store/apps/details?id=com.abdatacracker.fandtpizza",
-    showcase: "/projects/f&tpizza.jpg",
+    showcase: "/projects/f&tpizza.png",
     showcaseBg: "#FCCD10",
     hotspots: [
       {
@@ -201,28 +201,48 @@ function WorkCard({ p, className = "", onOpen }: { p: Project; className?: strin
       <article
         {...openProps}
         aria-label={`View ${p.title} — ${p.label}`}
-        className={`group relative aspect-[1.18/1] rounded-[28px] overflow-hidden shadow-card cursor-pointer transition-shadow hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
-        style={{ backgroundColor: p.showcaseBg ?? p.accentColor }}
+        className={`group relative flex flex-col cursor-pointer rounded-[28px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
       >
-        <img
-          src={p.showcase}
-          alt={`${p.title} — ${p.label}`}
-          className="absolute inset-0 h-full w-full object-cover select-none"
-          loading="lazy"
-        />
-        {p.hotspots?.map((h) => (
-          <a
-            key={h.label}
-            href={h.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={h.label}
-            title={h.label}
-            onClick={(e) => e.stopPropagation()}
-            className="absolute z-10 rounded-lg outline-none focus:outline-none focus-visible:outline-none"
-            style={{ left: h.left, top: h.top, width: h.width, height: h.height }}
+        <div
+          className="relative aspect-[1.18/1] w-full shrink-0 overflow-hidden rounded-[28px] shadow-card transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
+          style={{ backgroundColor: p.showcaseBg ?? p.accentColor }}
+        >
+          <img
+            src={p.showcase}
+            alt={`${p.title} — ${p.label}`}
+            className="absolute inset-0 h-full w-full object-cover select-none"
+            loading="lazy"
           />
-        ))}
+          {p.hotspots?.map((h) => (
+            <a
+              key={h.label}
+              href={h.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={h.label}
+              title={h.label}
+              onClick={(e) => e.stopPropagation()}
+              className="absolute z-10 rounded-lg outline-none focus:outline-none focus-visible:outline-none"
+              style={{ left: h.left, top: h.top, width: h.width, height: h.height }}
+            />
+          ))}
+        </div>
+
+        {/* Caption — description + stack sit on the section background */}
+        <div className="flex flex-1 flex-col px-1.5 pt-5">
+          <p className="text-[14px] leading-relaxed text-foreground/75">{p.description}</p>
+          <div className="mt-auto flex flex-wrap gap-2 pt-4">
+            {p.features.map((f) => (
+              <span
+                key={f}
+                className="rounded-full border px-2.5 py-1 text-[10.5px] font-semibold"
+                style={{ borderColor: `${p.accentColor}33`, background: `${p.accentColor}12`, color: p.accentColor }}
+              >
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
       </article>
     );
   }
